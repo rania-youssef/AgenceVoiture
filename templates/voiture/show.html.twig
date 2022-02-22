@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Voiture{% endblock %}
+
+{% block body %}
+  <h1>Voiture</h1>
+
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>Id</th>
+        <td>{{ voiture.id }}</td>
+      </tr>
+      <tr>
+        <th>Titre</th>
+        <td>{{ voiture.titre }}</td>
+      </tr>
+      <tr>
+        <th>Model</th>
+        <td>{{ voiture.model }}</td>
+      </tr>
+      <tr>
+        <th>Annee</th>
+        <td>{{ voiture.annee|date("F jS \\a\\t ") }}</td>
+      </tr>
+      <tr>
+        <th>Location</th>
+        <td>{{ voiture.location }}</td>
+      </tr>
+      <tr>
+        <th>Description</th>
+        <td>{{ voiture.description }}</td>
+      </tr>
+      {% if voiture.imges %}
+        <table>
+
+          {% for image in voiture.imges %}
+            <tr>
+              <td>
+                <img src="{{ asset('/uploads/' ~ image) }}" alt="Image" width="200" height="200"></td>
+            </td>
+          </tr>
+        {% endfor %}
+
+      {% else %}
+        <h1>
+          Pas des fichiers impotées
+        </h1>
+      {% endif %}
+    </tbody>
+  </table>
+
+  <a href="{{ path('voiture_index') }}">back to list</a>
+  {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('voiture_edit', {'id': voiture.id}) }}">edit</a>
+
+    {{ include('voiture/_delete_form.html.twig') }}
+  {% endif %}
+
+  <br>
+  <br>
+  {% if voiture.comments %}
+    <table>
+
+      {% for comm in voiture.comments %}
+        <h6>
+          {{comm.auteur.email}}
+        </h6><br>
+        <p>
+          {{comm.content}}
+        </p>
+      {% endfor %}
+    {% endif %}
+
+    <h3>
+      Ajouter un commentaire
+    </h3>
+    <br>
+    <br>
+    <form action="{{ path('new_comment', {'id': voiture.id}) }}" method="post">
+      <div class="class=" form-group"=" form-group""="form-group" "">
+
+        <input type="text" class="form-control" placeholder="Enter username" id="username" name="comment"/>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg">Ajouter</button>
+
+    </form>
+
+  {% endblock %}
