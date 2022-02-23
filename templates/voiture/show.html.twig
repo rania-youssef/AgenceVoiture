@@ -3,88 +3,117 @@
 {% block title %}Voiture{% endblock %}
 
 {% block body %}
-  <h1>Voiture</h1>
+  <style>
+    .carousel-inner img {
 
-  <table class="table">
-    <tbody>
-      <tr>
-        <th>Id</th>
-        <td>{{ voiture.id }}</td>
-      </tr>
-      <tr>
-        <th>Titre</th>
-        <td>{{ voiture.titre }}</td>
-      </tr>
-      <tr>
-        <th>Model</th>
-        <td>{{ voiture.model }}</td>
-      </tr>
-      <tr>
-        <th>Annee</th>
-        <td>{{ voiture.annee|date("F jS \\a\\t ") }}</td>
-      </tr>
-      <tr>
-        <th>Location</th>
-        <td>{{ voiture.location }}</td>
-      </tr>
-      <tr>
-        <th>Description</th>
-        <td>{{ voiture.description }}</td>
-      </tr>
-      {% if voiture.imges %}
-        <table>
+      /* make all photos black and white */
+      width: 80%;
+      /* Set width to 100% */
+      margin: auto;
+    }
+    body {
+      text-align: center;
+    }
 
-          {% for image in voiture.imges %}
-            <tr>
-              <td>
-                <img src="{{ asset('/uploads/' ~ image) }}" alt="Image" width="200" height="200"></td>
-            </td>
-          </tr>
-        {% endfor %}
+    .carousel-caption h3 {
+      color: #fff !important;
 
-      {% else %}
-        <h1>
-          Pas des fichiers impotées
-        </h1>
-      {% endif %}
-    </tbody>
-  </table>
+    }
 
-  <a href="{{ path('voiture_index') }}">back to list</a>
-  {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('voiture_edit', {'id': voiture.id}) }}">edit</a>
+    @media (max-width: 600px) {
+      .carousel-caption {
+        display: none;
+        /* Hide the carousel text when the screen is less than 600 pixels wide */
+      }
+    }
 
-    {{ include('voiture/_delete_form.html.twig') }}
-  {% endif %}
+    #myCarousel {
+      text-align: center;
 
-  <br>
-  <br>
-  {% if voiture.comments %}
-    <table>
-
-      {% for comm in voiture.comments %}
-        <h6>
-          {{comm.auteur.email}}
-        </h6><br>
-        <p>
-          {{comm.content}}
-        </p>
-      {% endfor %}
-    {% endif %}
-
-    <h3>
-      Ajouter un commentaire
-    </h3>
+    }
+  </style>
+  <body>
+    <h1>
+      {{ voiture.titre }}
+      /
+      {{ voiture.model }}</h1>
     <br>
-    <br>
-    <form action="{{ path('new_comment', {'id': voiture.id}) }}" method="post">
-      <div class="class=" form-group"=" form-group""="form-group" "">
 
-        <input type="text" class="form-control" placeholder="Enter username" id="username" name="comment"/>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+      <div class="carousel-inner" role="listbox">
+        {% if voiture.imges %}
+          <div class="item active">
+            {% for image in voiture.imges %}
+              <img src="{{ asset('/uploads/' ~ image) }}" alt="Image" width="350" height="350">
+            {% endfor %}
+          {% endif %}
+          <div class="carousel-caption">
+            <h3>{{ voiture.titre }}
+              /
+              {{ voiture.model }}</h3>
+            <p>
+              {{ voiture.annee|date("F jS \\a\\t ") }}</p>
+            <p>
+              Localisation :
+              {{ voiture.location }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
       </div>
+    </div>
 
-      <button type="submit" class="btn btn-primary btn-lg">Ajouter</button>
+    <br>
+    <h4>Decription:
 
-    </form>
+    </h4>
+    <p>
+      {{ voiture.description }}</p>
 
+    <br>
+    <br>
+    {% if voiture.comments %}
+      <table>
+
+        {% for comm in voiture.comments %}
+          <h6>
+            {{comm.auteur.email}}
+          </h6><br>
+          <p>
+            {{comm.content}}
+          </p>
+        {% endfor %}
+      {% endif %}
+
+      <h5>
+        Ajouter un commentaire
+      </h5>
+      <br>
+      <br>
+      <form action="{{ path('new_comment', {'id': voiture.id}) }}" method="post">
+        <div class="class=" form-group"=" form-group""="form-group" "">
+
+          <input type="text" class="form-control" placeholder="Enter your comment.." id="username" name="comment"/>
+        </div><br>
+        <button type="submit" class="btn btn-primary float-right">Ajouter</button>
+        <br>
+        <a href="{{ path('voiture_index') }}">back to list</a>
+        {% if is_granted('ROLE_ADMIN') %}
+          <a href="{{ path('voiture_edit', {'id': voiture.id}) }}">edit</a>
+
+          {{ include('voiture/_delete_form.html.twig') }}
+        {% endif %}
+
+      </form>
+    </body>
   {% endblock %}

@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/voiture')]
@@ -114,11 +115,47 @@ class VoitureController extends AbstractController
              $entityManager->flush();
 
              return $this->redirectToRoute("voiture_show",["id"=>$id]);
-            
+             }
              }
            
+             #[Route('/panier/add/{id}', name: 'add_panier')]
+             
+             public function add_panier($id, Request $request,  SessionInterface $session){
+             
+               // $session=$request->getSession();
+               
+              $panier=$session->get('panier',[]);
+               
+              if (!empty($panier[$id])){
+                  $panier[$id]++;
+              }else{
+                  $panier[$id]=1;
+              }
+              $session->set('panier',$panier);
+              dd($panier);
 
-        }
+
+             }
+
+             #[Route('/panier', name: 'show_panier')]
+             public function show_panier(SessionInterface $session,VoitureRepository $voiture){
+              $panier=$session->get('panier',[]);
+              $panierData = [];
+
+              foreach($panier as $id => $quantity){
+                  $panierData[]=[
+                      'product'=>$voiture->find($id),
+                      'quantity'=>$quantity
+                  ];
+              }
+
+              return $this->render("voiture/panier.html.tiwg",["panierData"=>$panierData]);
+
+             }
+       
+         
+
+
     }
  
 
