@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Voiture index{% endblock %}
+
+{% block body %}
+
+  <h2>
+    Mes favouries
+  </h2>
+  {% if favData | length > 0 %}
+    <table class="table">
+      <thead>
+        <tr>
+
+          <th>Titre</th>
+          <th>Model</th>
+          <th>Annee</th>
+          <th>prix</th>
+          <th>Location</th>
+          <th>Description</th>
+
+          <th>
+            Photos</th>
+        </tr>
+        <th></th>
+        <th></th>
+      </thead>
+      <tbody>
+        {% for voiture in favData %}
+          <tr>
+
+            <td>{{ voiture.titre }}</td>
+            <td>{{ voiture.model }}</td>
+            <td>{{ voiture.annee|date("F jS \\a\\t ") }}</td>
+            <td>
+              {{voiture.price}}</td>
+            <td>{{ voiture.location }}</td>
+            <td>{{ voiture.description }}</td>
+            <td>
+              {% for image in voiture.imges %}
+
+                <img src="{{ asset('/uploads/' ~ image) }}" alt="Image" width="50" height="50">
+              {% endfor %}
+            </td>
+            <td>
+              <a href="{{ path('voiture_show', {'id': voiture.id}) }}">show</a>
+
+            </td>
+            <td>
+              <a href="{{ path('delete_fav', {'id': voiture.id}) }}">
+                <i class="fas fa-trash"></i>
+              </a>
+            </tr>
+          {% else %}
+            <tr>
+              <td colspan="7">no records found</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    {% else %}
+      <h3>
+        Panier vide
+      </h3>
+
+    {% endif %}
+
+  {% endblock %}

@@ -20,11 +20,14 @@
       <div class="col-4 mt-4">
 
         <div class="border border-dark rounded p-2 clearfix">
-          <h2>
+          <h4>
             {{ voiture.titre }}
             /
             {{ voiture.model }}
-          </h2>
+          </h4><br>
+          <h6>Prix :
+            {{ voiture.price }}
+          </h6>
 
           <p>
             <td>{{ voiture.annee|date("F jS  ") }}</td>
@@ -51,9 +54,9 @@
 
           {% endif %}
           <hr>
-          <a href="{{ path('add_panier', {'id': voiture.id}) }}" class="btn btn-success float-right">
-            <i class="fas fa-shopping-cart mr-1"></i>
-            Ajouter
+          <a href="{{ path('add_fav', {'id': voiture.id}) }}" class="btn btn-danger float-right">
+            <i class="fas fa-heart"></i>
+            Favouri
           </a>
 
           <a href="{{ path('voiture_show', {'id': voiture.id}) }}">show</a>

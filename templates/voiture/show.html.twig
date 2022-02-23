@@ -82,6 +82,10 @@
 
     <br>
     <br>
+    <a href="{{ path('add_fav', {'id': voiture.id}) }}" class="btn btn-danger float-right">
+      <i class="fas fa-heart"></i>
+      Favouri
+    </a>
     {% if voiture.comments %}
       <table>
 

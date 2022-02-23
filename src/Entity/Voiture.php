@@ -2,12 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\VoitureRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\VoitureRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 
-#[ORM\Entity(repositoryClass: VoitureRepository::class)]
+
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\VoitureRepository")
+ * @ApiResource
+ */
 class Voiture
 {
     #[ORM\Id]
@@ -35,6 +40,9 @@ class Voiture
 
     #[ORM\Column(type: 'array')]
     private $imges = [];
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $price;
 
     public function __construct()
     {
@@ -146,6 +154,18 @@ class Voiture
     public function setImges(array $imges): self
     {
         $this->imges = $imges;
+
+        return $this;
+    }
+
+    public function getPrice(): ?string
+    {
+        return $this->price;
+    }
+
+    public function setPrice(string $price): self
+    {
+        $this->price = $price;
 
         return $this;
     }

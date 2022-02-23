@@ -22,6 +22,7 @@ class VoitureType extends AbstractType
                     'year' => 'Year', 'month' => 'Month', 'day' => 'Day',
                 ],
             ])
+            ->add('price')
             ->add('location')
             ->add('description')
             ->add('imges',FileType::class,[

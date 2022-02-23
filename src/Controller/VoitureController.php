@@ -118,40 +118,54 @@ class VoitureController extends AbstractController
              }
              }
            
-             #[Route('/panier/add/{id}', name: 'add_panier')]
+             #[Route('/fav/add/{id}', name: 'add_fav')]
              
-             public function add_panier($id, Request $request,  SessionInterface $session){
+             public function add_fav($id, Request $request, SessionInterface $session){
              
                // $session=$request->getSession();
                
-              $panier=$session->get('panier',[]);
+              $favouri=$session->get('favouri',[]);
                
-              if (!empty($panier[$id])){
-                  $panier[$id]++;
-              }else{
-                  $panier[$id]=1;
-              }
-              $session->set('panier',$panier);
-              dd($panier);
+              
+                  $favouri[$id]=1;
+            
+              $session->set('favouri',$favouri);
+               return $this->redirectToRoute("show_fav");
 
 
              }
 
-             #[Route('/panier', name: 'show_panier')]
-             public function show_panier(SessionInterface $session,VoitureRepository $voiture){
-              $panier=$session->get('panier',[]);
-              $panierData = [];
+             #[Route('/favouri/show', name: 'show_fav')]
+             public function show_fav(SessionInterface $session,VoitureRepository $voiture){
+              
+                $favou=$session->get("favouri",[]);
+            
+                $favData= [] ;
+                foreach($favou as $id=> $x){
+                    $favData[]=$voiture->find($id);
+                    
+                }
 
-              foreach($panier as $id => $quantity){
-                  $panierData[]=[
-                      'product'=>$voiture->find($id),
-                      'quantity'=>$quantity
-                  ];
-              }
-
-              return $this->render("voiture/panier.html.tiwg",["panierData"=>$panierData]);
+              
+              return $this->render("voiture/favouri.html.twig",["favData"=>$favData]);
 
              }
+
+             #[Route('/favouri/delete/{id}', name: 'delete_fav')]
+             
+             public function deleteFav($id,SessionInterface $session){
+
+                $favou=$session->get('favouri',[]);
+
+                if(!empty($favou[$id])){
+                    unset($favou[$id]);
+             }
+             $session->set('favouri',$favou);
+
+             return $this->redirectToRoute("show_fav");
+            }
+
+
        
          
 
