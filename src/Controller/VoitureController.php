@@ -165,11 +165,50 @@ class VoitureController extends AbstractController
              return $this->redirectToRoute("show_fav");
             }
 
+            #[Route('/recherch/model', name: 'recherchemodel', methods: ['GET','POST'])]
 
-       
+            public function RechercherM(Request $request,VoitureRepository $voitRep){
+
+                $model=$request->request->get('voiture');
+                
+               
+            
+                // lookup all hints from array if $q is different from ""
+                if ($model !== "") {
+                    $voitures= $voitRep->findBy(["model"=>$model]);
+                  
+                  
+                }
+                return $this->render("voiture/index.html.twig",["voitures"=>$voitures]);
+                // Output "no suggestion" if no hint was found or output correct values
+               
+             }
+             #[Route('/recherch/location', name: 'rechercheLocation', methods: ['GET','POST'])]
+
+            public function RechercherL(Request $request,VoitureRepository $voitRep){
+
+                $ville=$request->request->get('voiture');
+                
+               
+            
+                // lookup all hints from array if $q is different from ""
+                if ($ville !== "") {
+                    $voitures= $voitRep->findBy(["ville"=>$model]);
+                  
+                  
+                }
+                return $this->render("voiture/index.html.twig",["voitures"=>$voitures]);
+                // Output "no suggestion" if no hint was found or output correct values
+               
+             }
+            
+          
+
+
+        }
          
 
 
-    }
+    
  
 

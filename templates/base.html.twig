@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>
-      {% block title %}Welcome!
+      {% block title %}
+        title AutoShop !
       {% endblock %}
     </title>
     {% block stylesheets %}
@@ -22,11 +23,11 @@
       <div class="collapse navbar-collapse" id="navbarColor03">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="{{ path('voiture_index') }}">Produits
+            <a class="nav-link" href="{{ path('voiture_index') }}">Voitures
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ path('show_fav')}}">Favouri</a>
+            <a class="nav-link" href="{{ path('show_fav')}}">Favourites</a>
           </li>
         </ul>
       </div>

@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class VoitureType extends AbstractType
 {
@@ -15,7 +16,14 @@ class VoitureType extends AbstractType
     {
         $builder
             ->add('titre')
-            ->add('model')
+            ->add('model',ChoiceType::class,[
+                'choices'  => [
+                    'AUDI Q' => 'AUDI Q',
+                    "BENTLEY" => "BENTLEY",
+                    "BMW X" => "BMW X",
+                    "BOLLORE BLUECAR" =>"BOLLORE BLUECAR"
+                ],
+                    ])
             ->add('annee',DateType::class, [
                 // renders it as a single text box
                 'placeholder' => [
@@ -23,6 +31,19 @@ class VoitureType extends AbstractType
                 ],
             ])
             ->add('price')
+            ->add('ville',ChoiceType::class,[
+                'choices'  => [
+                    'Bizrete' => 'Bizrete',
+                    "Tunis" => "Tunis",
+                    "Sousse" => "Sousse",
+                    "Mahdia" => "Mahdia",
+                    "Tataouine" => "Tataouine",
+                    "Touzeur" => "Touzeur",
+                    "Béja" => "Béja",
+                    "Nabeul"=>"Nabeul",
+                   
+                ],
+            ])
             ->add('location')
             ->add('description')
             ->add('imges',FileType::class,[

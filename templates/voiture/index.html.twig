@@ -15,6 +15,40 @@
   {% endif %}
   <h1>Mon catalogue
   </h1>
+
+  <form method="post" action="{{path('recherchemodel')}}">
+    <select name="voiture" onchange="this.form.submit()">
+
+      <option value="">Select a model:</option>
+
+      <option value="AUDI Q">AUDI Q</option>
+      <option value="BENTLEY">BENTLEY</option>
+      <option value="BMW X">
+        BMW X</option>
+      <option value="BOLLORE BLUECAR">BOLLORE BLUECAR</option>
+
+    </select>
+  </form>
+  <br><br>
+
+  <div class="align-left">
+    <form method="post" action="{{path('rechercheLocation')}}">
+      <select name="voiture" onchange="this.form.submit()">
+
+        <option value="">Select a City :</option>
+        <option value="Bizrete">Bizrete</option>
+        <option value="Tunis">Tunis</option>
+        <option value="Sousse">Sousse</option>
+        <option value="Mahdia">Mahdia</option>
+        <option value="Tataouine">Tataouine</option>
+        <option value="Touzeur">Touzeur</option>
+        <option value="Béja">Béja</option>
+        <option value="Nabeul">Nabeul</option>
+
+      </select>
+    </form>
+  </div>
+
   <div class="row">
     {% for voiture in voitures %}
       <div class="col-4 mt-4">
