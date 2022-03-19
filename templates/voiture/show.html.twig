@@ -107,6 +107,7 @@
       <br>
       <form action="{{ path('new_comment', {'id': voiture.id}) }}" method="post">
         <div class="class=" form-group"=" form-group""="form-group" "">
+          <input type="hidden" name="token" value="{{ csrf_token('delete-item') }}"/>
 
           <input type="text" class="form-control" placeholder="Enter your comment.." id="username" name="comment"/>
         </div><br>

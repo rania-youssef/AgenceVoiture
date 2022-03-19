@@ -3,23 +3,42 @@
 namespace App\Entity;
 
 use App\Repository\CommentRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
+
+
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
+/**
+     * @ApiResource(
+     * collectionOperations={"get"},
+     * itemOperations={"get"})
+     */
+
 class Comment
 {
+    /*
+    @Groups({"read:comment"})
+    */ 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'Content')]
+    /*
+    @Groups({"read:comment"})
+    */
     private $auteur;
 
     #[ORM\ManyToOne(targetEntity: Voiture::class, inversedBy: 'comments')]
+
     private $voiture;
 
     #[ORM\Column(type: 'string', length: 255)]
+    /*
+    @Groups({"read:comment"})
+    */
     private $content;
 
     public function getAuteur(): ?User

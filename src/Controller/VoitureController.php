@@ -22,10 +22,12 @@ class VoitureController extends AbstractController
 {
     
     #[Route('/', name: 'voiture_index', methods: ['GET'])]
-    public function index(VoitureRepository $voitureRepository): Response
+    public function index(Request $request, VoitureRepository $voitureRepository): Response
     {
+        $method=$request->getMethod();
+
         return $this->render('voiture/index.html.twig', [
-            'voitures' => $voitureRepository->findAll(),
+            'voitures' => $voitureRepository->findAll(),"method"=>$method
         ]);
     }
 
@@ -48,6 +50,7 @@ class VoitureController extends AbstractController
                     $this->getParameter('images_directory'),
                     $fichier
                 );
+               
              $tabfichier[]=$fichier;
             
             $voiture->setImges($tabfichier);
@@ -101,13 +104,19 @@ class VoitureController extends AbstractController
 
         return $this->redirectToRoute('voiture_index', [], Response::HTTP_SEE_OTHER);
     }
-    #[Route('new_comment/{id}', name: 'new_comment')]
+    
+    #[Route('new_comment/{id}', name: 'new_comment',methods: ['POST','GET'])]
  
         public function newComment(EntityManagerInterface $entityManager,$id,?UserInterface $user,VoitureRepository $voiture, Request $request)
-        {
+        {   
+
+            $submittedToken = $request->request->get('token');
+
+            if ($this->isCsrfTokenValid('delete-item', $submittedToken)) {
              $comment=new Comment();
-             if($request){
+             
              $cont=$request->request->get("comment");
+
              $comment->setContent($cont);
              $comment->setAuteur( $user);
              $comment->setVoiture($voiture->find($id));
@@ -115,6 +124,8 @@ class VoitureController extends AbstractController
              $entityManager->flush();
 
              return $this->redirectToRoute("voiture_show",["id"=>$id]);
+             }else{
+                 return new Response("Source ivalide ");
              }
              }
            
@@ -143,6 +154,7 @@ class VoitureController extends AbstractController
                 $favData= [] ;
                 foreach($favou as $id=> $x){
                     $favData[]=$voiture->find($id);
+
                     
                 }
 
@@ -183,6 +195,8 @@ class VoitureController extends AbstractController
                 // Output "no suggestion" if no hint was found or output correct values
                
              }
+
+
              #[Route('/recherch/location', name: 'rechercheLocation', methods: ['GET','POST'])]
 
             public function RechercherL(Request $request,VoitureRepository $voitRep){

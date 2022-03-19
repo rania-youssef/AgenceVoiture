@@ -3,11 +3,13 @@
 {% block title %}Voiture index{% endblock %}
 
 {% block body %}
+  {% include "javas.html.twig"%}
   {% if is_granted('ROLE_ADMIN') %}
     <h6>
       En mode admin
     </h6>
   {% endif %}
+
   {% if is_granted('ROLE_USER') %}
     <h6>
       En mode utilisateur
@@ -17,18 +19,9 @@
   </h1>
 
   <form method="post" action="{{path('recherchemodel')}}">
-    <select name="voiture" onchange="this.form.submit()">
-
-      <option value="">Select a model:</option>
-
-      <option value="AUDI Q">AUDI Q</option>
-      <option value="BENTLEY">BENTLEY</option>
-      <option value="BMW X">
-        BMW X</option>
-      <option value="BOLLORE BLUECAR">BOLLORE BLUECAR</option>
-
-    </select>
+    <div id="sell"></div>
   </form>
+
   <br><br>
 
   <div class="align-left">
@@ -48,6 +41,11 @@
       </select>
     </form>
   </div>
+  <br>
+  <br>
+  {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('voiture_new') }}" class="btn btn-success">Create new</a>
+  {% endif %}
 
   <div class="row">
     {% for voiture in voitures %}
@@ -64,7 +62,7 @@
           </h6>
 
           <p>
-            <td>{{ voiture.annee|date("F jS  ") }}</td>
+            <td>{{ voiture.annee|date("F jS") }}</td>
           </p>
           {% if voiture.imges %}
 
@@ -100,12 +98,9 @@
           {% endif %}
         </div>
       </div>
+
     {% endfor %}
 
   </div>
-
-  {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('voiture_new') }}" class="btn btn-sucess">Create new</a>
-  {% endif %}
 
 {% endblock %}

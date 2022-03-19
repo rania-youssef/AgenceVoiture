@@ -18,7 +18,7 @@ class VoitureType extends AbstractType
             ->add('titre')
             ->add('model',ChoiceType::class,[
                 'choices'  => [
-                    'AUDI Q' => 'AUDI Q',
+                    'Accord' => 'Accord',
                     "BENTLEY" => "BENTLEY",
                     "BMW X" => "BMW X",
                     "BOLLORE BLUECAR" =>"BOLLORE BLUECAR"

@@ -17,6 +17,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="/">
         AutoShop</a>
+
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -31,13 +32,15 @@
           </li>
         </ul>
       </div>
+      <a href="{{ path('logout') }}" class="btn float-right">Deconnexion</a>
+      <td><br><br>
 
+      </div>
+    </nav>
+
+    <div class="container pt-5">
+      {% block body %}{% endblock %}
     </div>
-  </nav>
-
-  <div class="container pt-5">
-    {% block body %}{% endblock %}
-  </div>
-  {% block javascripts %}{% endblock %}
-</body>
+    {% block javascripts %}{% endblock %}
+  </body>
 </html>
