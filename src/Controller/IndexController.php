@@ -66,7 +66,7 @@ class IndexController extends AbstractController
                 $registre->setCodePostale($request->get('code_poste'));
                 $registre->setVille($request->get('ville'));
                 $registre->setPays($request->get('pays'));
-                $registre->setWebSite($request->get('web_site'));
+                $registre->setWebSite("$request->get('web_site')");
                 $registre->setActivity($request->get('activity'));
                 $registre->setEtatDem("en attente");
                 $registre->setUser($user);
