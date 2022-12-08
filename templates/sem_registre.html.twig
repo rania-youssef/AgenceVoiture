@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+  {% include "javas.html.twig"%}
+
+  <html>
+    <head>
+      <style>
+        .entreprise,
+        .vous {
+          border: 1px solid black;
+          margin: 60px;
+          padding: 30px;
+
+        }
+      </style>
+
+    </head>
+    <body>
+      {% if user.semRegistre %}
+        <h1>
+          vous êtes inscrit au séminaire
+          <a href="{{path('show_profil')}}" class="btn btn-primary">Voir mon inscription
+          </a>
+
+        </h1>
+      {% else %}
+        <h2>S'inscire au séminaire
+        </h2>
+        <form method="post" action="{{path('sem_register')}}">
+          <div class="vous">
+            <div class="form-group">
+              <label for="prenom">Prénom :
+              </label>
+              <input type="text" class="form-control" placeholder="Tapez votre prénom" name="prenom" required="required">
+            </div>
+            <div class="form-group">
+              <label for="nom">Nom</label>
+              <input type="nom" class="form-control" name="nom" placeholder="tapez votre nom" required="required">
+            </div>
+
+            <div class="form-group">
+              <label for="civility">
+                Civilté
+              </label>
+              <select class="form-control" name="civility" required="required">
+                <option></option>
+                <option>Madame
+                </option>
+                <option>
+                  Mademoiselle</option>
+                <option>
+                  Monsieur</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="int_poste">Intitulé de poste
+              </label>
+              <input type="text" class="form-control" name="int_poste" required="required">
+            </div>
+
+            <div class="form-group">
+              <label for="phone_fix">Téléphone Fixe</label>
+              <input type="tel" class="form-control" name="phone_fix" required="required">
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Téléphone portable professionnel ou personnel à usage
+              </label>
+              <input type="tel" class="form-control" name="phone" required="required">
+            </div>
+
+            <small class="form-text text-muted">Votre numéro de téléphone servire uniquement à Weyou groupe , pour vous informer de tout changement (Horaires,Conférences,Report de derniére minute, envoir du badge, différentes, animations business et événements..) il ne sera en aucun cas communiqué aux exposants (badges, emailings, etc..)</small>
+          </div>
+
+          <div class="entreprise">
+            <div class="form-group">
+              <label for="raison">Raison Sociale
+              </label>
+              <input type="text" class="form-control" name="raison" required="required">
+            </div>
+
+            <div class="form-group">
+              <label for="adresse">Adresse</label>
+              <input type="text" class="form-control" name="adresse" required="required">
+            </div>
+            <div class="form-group">
+              <label for="code_poste">
+                Code Postale
+              </label>
+              <input type="text" class="form-control" name="code_poste" required="required">
+            </div>
+
+            <div class="form-group">
+              <label for="ville">
+                Ville</label>
+              <input type="text" class="form-control" name="ville" required="required">
+            </div>
+
+            <div class="form-group">
+              <label for="pays">
+                Pays
+              </label>
+              <div id="pays"></div>
+              <div class="form-group">
+                <label for="web_site">
+                  Site internet</label>
+                <input type="text" class="form-control" name="web_site" required="required">
+              </div>
+
+            </div>
+            <div class="form-group">
+              <label for="activity">
+                Activité</label>
+              <input type="text" class="form-control" name="activity" required="required">
+            </div>
+
+          </div>
+
+          <input type="submit" value="Enregistrer" class="btn-group-lg btn-success">
+        </div>
+      </div>
+    {% endif %}
+  {% endblock %}

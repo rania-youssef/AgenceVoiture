@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Voiture index{% endblock %}
+
+{% block body %}
+
+  {% if is_granted('ROLE_ADMIN') %}
+
+    <style>
+      table {
+        border: 1px solid black;
+      }
+    </style>
+
+    <button onclick="window.print()">Print this page</button>
+    <form action="{{path('envoie_email')}}" method="post">
+      <table class="table">
+        <tr>
+
+          <th>
+            N°</th>
+          <th>Prenom</th>
+          <th>Nom
+          </th>
+          <th>Email
+          </th>
+          <th>Téléphone</th>
+          <th>Etat</th>
+          <th></th>
+
+        </tr>
+
+        <tr>
+          {% if liste_demande %}
+            {% for demande in liste_demande %}
+              <tr>
+                <td>
+                  <input type="checkbox" name="checked[]" value="{{demande.user.id}}" class="multi_checkbox checkall">
+                  <td>{{demande.user.getNumRegister()}}</td>
+
+                  <td>{{demande.nom}}</td>
+                  <td>{{demande.prenom}}</td>
+                  <td>{{demande.user.email}}</td>
+                  <td>{{demande.phone}}</td>
+                  <td>
+                    <a href="{{path('show_dem',{'id':demande.id})}}">
+                      show
+                    </a>
+                  </td>
+                  {% if demande.getEtatDem == "en attente" %}
+
+                    <td>
+                      <a href="{{path('accepter',{'id':demande.id})}}">Accepter</a>
+                      <a href="{{path('refuser',{'id':demande.id})}}">Refuser</a>
+                    </td>
+                  {% else %}
+                    <td>
+                      {{demande.getEtatDem}}</td>
+                  {% endif %}
+                </tr>
+
+              {% endfor %}
+            </table>
+
+            <button type="submit">Envoyer email</button>
+
+          </form>
+        {% endif %}
+
+      {% endif %}
+    {% endblock %}

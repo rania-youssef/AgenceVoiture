@@ -35,7 +35,15 @@ class VoitureRepository extends ServiceEntityRepository
         ;
     }
     */
-
+    public function getNbVoiture()
+    {
+        return $this->createQueryBuilder('v')
+        ->select('count(v.id)')
+        ->getQuery()
+        ->getSingleScalarResult();
+           
+        ;
+    }
     /*
     public function findOneBySomeField($value): ?Voiture
     {

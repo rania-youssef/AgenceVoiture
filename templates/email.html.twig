@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}welcome
+{% endblock %}
+
+{% block body %}
+
+  <h4>Cher
+    {{user.firstName}}
+    {{user.lastName}},
+  </h4>
+
+  <p>
+    Nous serons heureux de vous acceuillir au salon Stratégie Clients, du 10 au 12 avril 2010 à Paris-Porte de Versailles.
+  </p>
+  <p>Pour faciliter votre accés à la manifestation, vous trouverez ci-dessous
+    <strong>votre badge électronique.</strong>
+  </p>
+
+  <p>
+    A l'entrée du salon, il vous suffira de
+    <strong>scanner le code imprimé sur ce badge
+    </strong>
+    à l'aide des postes informatiques en self service prévus à cet effet ou bien en vous présentant directement à l'acceuil visiteur "spécial pré-enregistrée".
+    <strong>Votre padge personnel sera imprimé sans attente !
+    </strong><br>
+    <strong>Attention: un seul badge sera imprimé par code .</strong>
+  </p>
+  <p>
+    Votre numéro de badge est le :
+    <strong>{{ user.getNumRegister()}}
+      .
+    </strong>
+  </p>
+
+{% endblock %}

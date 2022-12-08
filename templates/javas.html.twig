@@ -1,22 +1,15 @@
 <script>
-
   async function start() {
-    const response = await fetch("https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformake/honda?format=json");
+    const response = await fetch("https://www.citysearch-api.com/fr/pays?login=APP_LOGIN&apikey=APP_KEY");
     const data = await response.json();
-    console.log(data.Results);
-    var modelList = data.Results;
-
-    var text = `<select name="voiture" onchange='this.form.submit()'> <option > Choose a model </option>`;
-
-    for (x in modelList) {
-
-      text += `<option value="${modelList[x].Model_Name}"> ${modelList[x].Model_Name}</option>`;
+    var paysList = data.results;
+    var text = `<select name="pays" class="form-control"> <option >  </option>`;
+    for (x in paysList) {
+      text += `<option value="${paysList[x].pays}" > ${paysList[x].pays}</option>`;
+      console.log(paysList[x].pays);
     }
     text += `</select> `;
-
-    document.getElementById("sell").innerHTML = text;
-
+    document.getElementById("pays").innerHTML = text;
   }
-
   start();
 </script>

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit SemRegistre{% endblock %}
+
+{% block body %}
+    <h1>Edit SemRegistre</h1>
+
+    {{ include('sem_registre/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('sem_registre_index') }}">back to list</a>
+
+    {{ include('sem_registre/_delete_form.html.twig') }}
+{% endblock %}

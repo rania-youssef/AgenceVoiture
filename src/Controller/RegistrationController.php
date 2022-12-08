@@ -36,11 +36,14 @@ class RegistrationController extends AbstractController
             // encode the plain password
            /* $roles[]= $form['role']->getData(); 
             $user->setRoles($roles);
-*/
+*/  $user=$form->getData();
+       $roles[]= $form['role']->getData(); 
+            $user->setRoles($roles);
+            $user->setNumRegister("202250".rand(0,600));
             $user->setPassword(
             $userPasswordHasher->hashPassword(
                     $user,
-                    $form->get('plainPassword')->getData()
+                    $form->get('password')->getData()
                 )
             );
 

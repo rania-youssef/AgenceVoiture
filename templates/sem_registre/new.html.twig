@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New SemRegistre{% endblock %}
+
+{% block body %}
+    <h1>Create new SemRegistre</h1>
+
+    {{ include('sem_registre/_form.html.twig') }}
+
+    <a href="{{ path('sem_registre_index') }}">back to list</a>
+{% endblock %}

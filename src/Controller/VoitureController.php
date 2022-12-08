@@ -5,6 +5,9 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Voiture;
 use App\Form\VoitureType;
+use App\Event\AddVoitureEvent;
+use App\Event\ListAllVoitures;
+use App\Event\ListAllVoituresEvent;
 use App\Repository\VoitureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/voiture')]
@@ -21,11 +25,20 @@ class VoitureController extends AbstractController
 
 {
     
+    
+
+    public function __construct(private EventDispatcherInterface $dispatcher){
+    }
+    
     #[Route('/', name: 'voiture_index', methods: ['GET'])]
     public function index(Request $request, VoitureRepository $voitureRepository): Response
     {
         $method=$request->getMethod();
 
+        //dd($voitureRepository->getNbVoiture());
+        $listAllVoituresEvent= new ListAllVoituresEvent($voitureRepository->getNbVoiture());
+
+        $this->dispatcher->dispatch($listAllVoituresEvent,ListAllVoituresEvent::GET_ALL_VOITURES);
         return $this->render('voiture/index.html.twig', [
             'voitures' => $voitureRepository->findAll(),"method"=>$method
         ]);
@@ -34,7 +47,11 @@ class VoitureController extends AbstractController
     #[Route('/new', name: 'voiture_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        
         $voiture = new Voiture();
+
+        
+
         $form = $this->createForm(VoitureType::class, $voiture);
         $form->handleRequest($request);
   
@@ -59,8 +76,18 @@ class VoitureController extends AbstractController
             $entityManager->persist($voiture);
             $entityManager->flush();
 
+            
+
+
             return $this->redirectToRoute('voiture_index', [], Response::HTTP_SEE_OTHER);
         }
+
+        $addVoitureEvent =new AddVoitureEvent($voiture);
+
+        $this->dispatcher->dispatch($addVoitureEvent,AddVoitureEvent::ADD_VOITURE_EVENT);
+        
+
+
 
         return $this->renderForm('voiture/new.html.twig', [
             'voiture' => $voiture,
@@ -153,6 +180,7 @@ class VoitureController extends AbstractController
             
                 $favData= [] ;
                 foreach($favou as $id=> $x){
+                    
                     $favData[]=$voiture->find($id);
 
                     
@@ -207,7 +235,7 @@ class VoitureController extends AbstractController
             
                 // lookup all hints from array if $q is different from ""
                 if ($ville !== "") {
-                    $voitures= $voitRep->findBy(["ville"=>$model]);
+                    $voitures= $voitRep->findBy(["ville"=>$ville]);
                   
                   
                 }

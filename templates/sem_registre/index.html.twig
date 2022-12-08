@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SemRegistre index{% endblock %}
+
+{% block body %}
+    <h1>SemRegistre index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Civilite</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Intitule_poste</th>
+                <th>Phone</th>
+                <th>Phone_fix</th>
+                <th>Raison_soc</th>
+                <th>Adresse</th>
+                <th>Code_postale</th>
+                <th>Ville</th>
+                <th>Pays</th>
+                <th>Web_site</th>
+                <th>Activity</th>
+                <th>Etat_dem</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sem_registre in sem_registres %}
+            <tr>
+                <td>{{ sem_registre.id }}</td>
+                <td>{{ sem_registre.civilite }}</td>
+                <td>{{ sem_registre.nom }}</td>
+                <td>{{ sem_registre.prenom }}</td>
+                <td>{{ sem_registre.intitulePoste }}</td>
+                <td>{{ sem_registre.phone }}</td>
+                <td>{{ sem_registre.phoneFix }}</td>
+                <td>{{ sem_registre.raisonSoc }}</td>
+                <td>{{ sem_registre.adresse }}</td>
+                <td>{{ sem_registre.codePostale }}</td>
+                <td>{{ sem_registre.ville }}</td>
+                <td>{{ sem_registre.pays }}</td>
+                <td>{{ sem_registre.webSite }}</td>
+                <td>{{ sem_registre.activity }}</td>
+                <td>{{ sem_registre.etatDem }}</td>
+                <td>
+                    <a href="{{ path('sem_registre_show', {'id': sem_registre.id}) }}">show</a>
+                    <a href="{{ path('sem_registre_edit', {'id': sem_registre.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="16">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('sem_registre_new') }}">Create new</a>
+{% endblock %}
