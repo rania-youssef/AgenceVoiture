@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<!DOCTYPE html>
+	<html lang="en">
+		<head></head>
+		<link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+
+		<body>
+			<header class="jumbotron">
+				<h1 class="display-4">Rent Your Dream Car</h1>
+				<p class="lead">Explore our wide range of cars and find the perfect one for your journey.</p>
+				<a class="btn btn-primary btn-lg" href="#">View Cars</a>
+			</header>
+
+			<!-- Search Section -->
+			<section class="search-section">
+				<div class="container">
+					<h2 class="text-center mb-4">Find Your Car</h2>
+					<form>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="pickupLocation">Pickup Location</label>
+								<input type="text" class="form-control" id="pickupLocation" placeholder="Enter Pickup Location">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="dropoffLocation">Dropoff Location</label>
+								<input type="text" class="form-control" id="dropoffLocation" placeholder="Enter Dropoff Location">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<label for="pickupDate">Pickup Date</label>
+								<input type="date" class="form-control" id="pickupDate">
+							</div>
+							<div class="form-group col-md-6">
+								<label for="dropoffDate">Dropoff Date</label>
+								<input type="date" class="form-control" id="dropoffDate">
+							</div>
+						</div>
+						<button type="submit" class="btn btn-primary">Search</button>
+					</form>
+				</div>
+			</section>
+
+			<!-- Car Cards -->
+			<section class="container">
+				<h2 class="text-center mb-4">Featured Cars</h2>
+				<div
+					class="row">
+					<!-- Example Car Card -->
+					<div class="col-md-4">
+						<div class="card car-card">
+							<img src="car1.jpg" class="card-img-top" alt="Car Image">
+							<div class="card-body">
+								<h5 class="card-title">Car Model 1</h5>
+								<p class="card-text">Description of the car. Features and specifications.</p>
+								<a href="#" class="btn btn-primary">Rent Now</a>
+							</div>
+						</div>
+					</div>
+					<!-- Repeat for other featured cars -->
+				</div>
+			</section>
+
+		</body>
+
+	</html>
+{% endblock %}

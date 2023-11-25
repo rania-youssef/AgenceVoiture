@@ -15,12 +15,16 @@ class IndexController extends AbstractController
      * @Route("/",name="home")
      */
     public function home(?UserInterface $user){
-        if($user){
-            return $this->redirectToRoute('voiture_index', [], Response::HTTP_SEE_OTHER);
-        }else{
-            return $this->redirectToRoute('login', [], Response::HTTP_SEE_OTHER);
+
+        if ($user !== null) {
+            if (in_array('ROLE_ADMIN', $user->getRoles())) {
+                return $this->redirectToRoute('home_admin', [], Response::HTTP_SEE_OTHER);
+            }
+            if (in_array('ROLE_USER', $user->getRoles())) {
+                return $this->redirectToRoute('home_user', [], Response::HTTP_SEE_OTHER);
+            }
         }
-        
+        return $this->redirectToRoute('login', [], Response::HTTP_SEE_OTHER);
     }
 
 

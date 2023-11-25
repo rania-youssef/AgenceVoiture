@@ -34,9 +34,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $role;
 
-    #[ORM\OneToMany(mappedBy: 'auteur', targetEntity: Comment::class)]
-    private $Content;
-
     public function __construct()
     {
         $this->roles = array('ROLE_USER');
@@ -156,33 +153,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Comment>
-     */
-    public function getContent(): Collection
-    {
-        return $this->Content;
-    }
-
-    public function addContent(Comment $content): self
-    {
-        if (!$this->Content->contains($content)) {
-            $this->Content[] = $content;
-            $content->setAuteur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeContent(Comment $content): self
-    {
-        if ($this->Content->removeElement($content)) {
-            // set the owning side to null (unless already changed)
-            if ($content->getAuteur() === $this) {
-                $content->setAuteur(null);
-            }
-        }
-
-        return $this;
-    }
 }

@@ -1,0 +1,35 @@
+body {
+    padding-top: 56px;
+}
+
+@media (min-width: 768px) {
+    body {
+        padding-top: 76px;
+    }
+}
+
+.jumbotron {
+    background-image: url('https://assets-global.website-files.com/5ec85520c4dfff034b036be2/636452180cd994fe79c8356f_WF53197_LITGRE_November2022Content_Rolls%20Royce%20Spectre%20is%20it%20really%20a%20green%20car_header.webp');
+    background-size: cover;
+    color: white;
+    text-align: center;
+    padding: 100px 0;
+    margin-bottom: 0;
+    height: 500px;
+}
+.navbar {
+    background-color: #503700;
+}
+
+.search-section {
+    background-color: #f8f9fa;
+    padding: 50px 0;
+}
+
+.car-card {
+    margin-bottom: 20px;
+}
+.car-container {
+    max-width: 1200px;
+    margin: 20px auto;
+}
